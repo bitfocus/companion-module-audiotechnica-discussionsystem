@@ -12,6 +12,7 @@ module.exports = {
 				'sspkv',
 				'sintc',
 				'sreco',
+
 				'sconf',
 				'srcdu',
 				'takof',
@@ -22,11 +23,13 @@ module.exports = {
 				'scgpo',
 				'splay',
 				'spllv',
+
 				'recmd',
 				'reclv',
 				'callp',
 				'savep',
 				'sdate',
+
 				'srccu'
 			],
 			feedbacks: [
@@ -75,8 +78,6 @@ module.exports = {
 				'gintc',
 				'greco',
 				'gconf',
-				'gcgpi',
-				'gcvui',
 				'recst',
 				'glvmt',
 			]

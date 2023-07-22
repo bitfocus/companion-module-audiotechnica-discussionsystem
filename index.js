@@ -44,7 +44,9 @@ class atucInstance extends InstanceBase {
 		this.CONTROL_NAK = 'NAK'
 		this.CONTROL_END = '\r';
 
-		this.DATA = {}
+		this.DATA = {
+			
+		}
 	}
 
 	async destroy() {

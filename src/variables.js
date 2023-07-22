@@ -9,17 +9,46 @@ module.exports = {
 		let model = this.MODELS.find((model) => model.id == this.config.model);
 
 		if (model) { //push model specific variables
-			if (model.variables.includes('input_gain_level')) {
-				for (let i = 0; i < model.input_channels.length; i++) {
-					variables.push({ variableId: `${model.input_channels[i].variableId}_mic_gain`, name: `${model.input_channels[i].label} Mic Gain`})
-					variables.push({ variableId: `${model.input_channels[i].variableId}_line_gain`, name: `${model.input_channels[i].label} Line Gain`})
-					variables.push({ variableId: `${model.input_channels[i].variableId}_level`, name: `${model.input_channels[i].label} Level`})
-					variables.push({ variableId: `${model.input_channels[i].variableId}_mute`, name: `${model.input_channels[i].label} Mute`})
-				}
+			if (model.variables.includes('gcust')) {
 			}
 
-			if (model.variables.includes('preset_number')) {
-				variables.push({ variableId: `preset_number`, name: `Current Preset Number`});
+			if (model.variables.includes('gminp')) {
+			}
+
+			if (model.variables.includes('gxinp')) {
+			}
+
+			if (model.variables.includes('giinp')) {
+			}
+
+			if (model.variables.includes('gaout')) {
+			}
+
+			if (model.variables.includes('ggpio')) {
+			}
+
+			if (model.variables.includes('gintc')) {
+			}
+
+			if (model.variables.includes('ggpst')) {
+			}
+
+			if (model.variables.includes('gcgpi')) {
+			}
+
+			if (model.variables.includes('gcvui')) {
+			}
+
+			if (model.variables.includes('recst')) {
+				variables.push({ variableId: `rec_status`, name: `Recording Status`});
+				variables.push({ variableId: `rec_elapsed`, name: `Recording Time Elapsed`});
+				variables.push({ variableId: `rec_remaining`, name: `Recording Time Remaining`});
+			}
+
+			if (model.variables.includes('glvmt')) {
+			}
+
+			if (model.variables.includes('confm')) {
 			}
 		}
 
@@ -35,25 +64,50 @@ module.exports = {
 			let model = this.MODELS.find((model) => model.id == this.config.model);
 
 			if (model) {
-				if (model.variables.includes('input_gain_level')) {
-					let variableObj = {};
-					
-					for (let i = 0; i < this.DATA.input_gain_level.length; i++) {
-						let inputGainLevelObj = this.DATA.input_gain_level[i];
-						let modelChannelObj = model.input_channels.find((CHANNEL) => CHANNEL.id == inputGainLevelObj.id);
+				if (model.variables.includes('gcust')) {
+				}
 	
-						variableObj[`${modelChannelObj.variableId}_mic_gain`] = inputGainLevelObj.mic_gain_label;
-						variableObj[`${modelChannelObj.variableId}_line_gain`] = inputGainLevelObj.line_gain_label;
-						variableObj[`${modelChannelObj.variableId}_level`] = inputGainLevelObj.level_label;
-						variableObj[`${modelChannelObj.variableId}_mute`] = (inputGainLevelObj.mute == true ? 'On' : 'Off')
-					}
+				if (model.variables.includes('gminp')) {
+				}
+	
+				if (model.variables.includes('gxinp')) {
+				}
+	
+				if (model.variables.includes('giinp')) {
+				}
+	
+				if (model.variables.includes('gaout')) {
+				}
+	
+				if (model.variables.includes('ggpio')) {
+				}
+	
+				if (model.variables.includes('gintc')) {
+				}
+	
+				if (model.variables.includes('ggpst')) {
+				}
+	
+				if (model.variables.includes('gcgpi')) {
+				}
+	
+				if (model.variables.includes('gcvui')) {
+				}
+	
+				if (model.variables.includes('recst')) {
+					let variableObj = {};
+
+					variableObj[`rec_status`] = this.DATA.recst.status;
+					variableObj[`rec_elapsed`] = this.DATA.recst.elapsed;
+					variableObj[`rec_remaining`] = this.DATA.recst.remaining;
+
 					this.setVariableValues(variableObj);
 				}
-
-				if (model.variables.includes('preset_number')) {
-					let variableObj = {};
-					variableObj[`preset_number`] = this.DATA.preset_number;
-					this.setVariableValues(variableObj);
+	
+				if (model.variables.includes('glvmt')) {
+				}
+	
+				if (model.variables.includes('confm')) {
 				}
 			}
 		}
