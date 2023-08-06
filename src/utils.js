@@ -1,4 +1,6 @@
-const { InstanceStatus, TCPHelper } = require('@companion-module/base')
+const { InstanceStatus, TCPHelper } = require('@companion-module/base');
+
+const dgram = require('dgram');
 
 module.exports = {
 	buildCommand(cmd, handshake, params) {
@@ -58,9 +60,7 @@ module.exports = {
 	setUpInternalDataArrays() {
 		let model = this.MODELS.find((model) => model.id == this.config.model);
 
-		if (model.data_request.includes('input_gain_level')) {
-			this.DATA.input_gain_levels = [];
-		}
+		
 	},
 
 	initTCP() {
@@ -95,7 +95,7 @@ module.exports = {
 			this.socket.on('connect', () => {
 				self.cmdPipe = [];
 
-				this.initPolling()
+				this.initPolling();
 
 				this.updateStatus(InstanceStatus.Ok)
 			})
@@ -203,248 +203,315 @@ module.exports = {
 		
 		params = params.split(',');
 
-		let model = this.MODELS.find((model) => model.id == this.config.model);
-
-		let inputChannel = '';
-
-		let model_inputChannelObj;
-
-		let found = false;
-
 		switch (category) {
+			case 'gcust':
+				self.DATA.gcust = {
+					primary_porta_topology: params[0] || '',
+					primary_porta_du_count: params[1] || '',
+					primary_porta_int50_count: params[2] || '',
+					primary_porta_iu_count: params[3] || '',
+
+					primary_portb_topology: params[4] || '',
+					primary_portb_du_count: params[5] || '',
+					primary_portb_int50_count: params[6] || '',
+					primary_portb_iu_count: params[7] || '',
+					
+					primary_portc_topology: params[8] || '',
+					primary_portc_du_count: params[9] || '',
+					primary_portc_int50_count: params[10] || '',
+					primary_portc_iu_count: params[11] || '',
+
+					primary_portd_topology: params[12] || '',
+					primary_portd_du_count: params[13] || '',
+					primary_portd_int50_count: params[14] || '',
+					primary_portd_iu_count: params[15] || '',
+
+					extension1_porta_topology: params[16] || '',
+					extension1_porta_du_count: params[17] || '',
+					extension1_porta_iu_count: params[18] || '',
+
+					extension1_portb_topology: params[19] || '',
+					extension1_portb_du_count: params[20] || '',
+					extension1_portb_iu_count: params[21] || '',
+
+					extension2_porta_topology: params[22] || '',
+					extension2_porta_du_count: params[23] || '',
+					extension2_porta_iu_count: params[24] || '',
+
+					extension2_portb_topology: params[25] || '',
+					extension2_portb_du_count: params[26] || '',
+					extension2_portb_iu_count: params[27] || '',
+
+					extension3_porta_topology: params[28] || '',
+					extension3_porta_du_count: params[29] || '',
+					extension3_porta_iu_count: params[30] || '',
+
+					extension3_portb_topology: params[31] || '',
+					extension3_portb_du_count: params[32] || '',
+					extension3_portb_iu_count: params[33] || '',
+
+					connected_irdu: params[34] || '',
+
+					primary_porta_duas_count: params[35] || '',
+					primary_portb_duas_count: params[36] || '',
+					primary_portc_duas_count: params[37] || '',
+					primary_portd_duas_count: params[38] || '',
+
+					extension1_porta_duas_count: params[39] || '',
+					extension1_portb_duas_count: params[40] || '',
+
+					extension2_porta_duas_count: params[41] || '',
+					extension2_portb_duas_count: params[42] || '',					
+				};
+				break;
 			case 'gminp':
 				self.DATA.gminp = {
-					input1_type: params[0] || '',
-					input1_mixtofloor: params[1] || '',
-					input1_mixtolanguage: params[2] || '',
+					miclineinput1_type: params[0] || '',
+					miclineinput1_mixtofloor: params[1] || '',
+					miclineinput1_mixtolanguage: params[2] || '',
 
-					input1_mic_phantompower: params[3] || '',
-					input1_mic_gain: params[4] || '',
-					input1_mic_level: params[5] || '',
-					input1_mic_lowcut: params[6] || '',
-					input1_mic_eq1_frequency: params[7] || '',
-					input1_mic_eq1_gain: params[8] || '',
-					input1_mic_eq1_q: params[9] || '',
-					input1_mic_eq1_filtertype: params[10] || '',
-					input1_mic_eq2_frequency: params[11] || '',
-					input1_mic_eq2_gain: params[12] || '',
-					input1_mic_eq2_q: params[13] || '',
-					input1_mic_eq2_filtertype: params[14] || '',
-					input1_mic_eq3_frequency: params[15] || '',
-					input1_mic_eq3_gain: params[16] || '',
-					input1_mic_eq3_q: params[17] || '',
-					input1_mic_eq3_filtertype: params[18] || '',
+					miclineinput1_mic_phantompower: params[3] || '',
+					miclineinput1_mic_gain: params[4] || '',
+					miclineinput1_mic_level: params[5] || '',
+					miclineinput1_mic_lowcut: params[6] || '',
 
-					input1_line_phantompower: params[19] || '',
-					input1_line_gain: params[20] || '',
-					input1_line_level: params[21] || '',
-					input1_line_lowcut: params[22] || '',
-					input1_line_eq1_frequency: params[23] || '',
-					input1_line_eq1_gain: params[24] || '',
-					input1_line_eq1_q: params[25] || '',
-					input1_line_eq1_filtertype: params[26] || '',
-					input1_line_eq2_frequency: params[27] || '',
-					input1_line_eq2_gain: params[28] || '',
-					input1_line_eq2_q: params[29] || '',
-					input1_line_eq2_filtertype: params[30] || '',
-					input1_line_eq3_frequency: params[31] || '',
-					input1_line_eq3_gain: params[32] || '',
-					input1_line_eq3_q: params[33] || '',
-					input1_line_eq3_filtertype: params[34] || '',
+					miclineinput1_mic_eq1_frequency: params[7] || '',
+					miclineinput1_mic_eq1_gain: params[8] || '',
+					miclineinput1_mic_eq1_q: params[9] || '',
+					miclineinput1_mic_eq1_filtertype: params[10] || '',
+					
+					miclineinput1_mic_eq2_frequency: params[11] || '',
+					miclineinput1_mic_eq2_gain: params[12] || '',
+					miclineinput1_mic_eq2_q: params[13] || '',
+					miclineinput1_mic_eq2_filtertype: params[14] || '',
+					
+					miclineinput1_mic_eq3_frequency: params[15] || '',
+					miclineinput1_mic_eq3_gain: params[16] || '',
+					miclineinput1_mic_eq3_q: params[17] || '',
+					miclineinput1_mic_eq3_filtertype: params[18] || '',
 
-					input2_type: params[35] || '',
-					input2_mixtofloor: params[36] || '',
-					input2_mixtolanguage: params[37] || '',
+					miclineinput1_line_phantompower: params[19] || '',
+					miclineinput1_line_gain: params[20] || '',
+					miclineinput1_line_level: params[21] || '',
+					miclineinput1_line_lowcut: params[22] || '',
+					
+					miclineinput1_line_eq1_frequency: params[23] || '',
+					miclineinput1_line_eq1_gain: params[24] || '',
+					miclineinput1_line_eq1_q: params[25] || '',
+					miclineinput1_line_eq1_filtertype: params[26] || '',
+					
+					miclineinput1_line_eq2_frequency: params[27] || '',
+					miclineinput1_line_eq2_gain: params[28] || '',
+					miclineinput1_line_eq2_q: params[29] || '',
+					miclineinput1_line_eq2_filtertype: params[30] || '',
+					
+					miclineinput1_line_eq3_frequency: params[31] || '',
+					miclineinput1_line_eq3_gain: params[32] || '',
+					miclineinput1_line_eq3_q: params[33] || '',
+					miclineinput1_line_eq3_filtertype: params[34] || '',
 
-					input2_mic_phantompower: params[38] || '',
-					input2_mic_gain: params[39] || '',
-					input2_mic_level: params[40] || '',
-					input2_mic_lowcut: params[41] || '',
-					input2_mic_eq1_frequency: params[42] || '',
-					input2_mic_eq1_gain: params[43] || '',
-					input2_mic_eq1_q: params[44] || '',
-					input2_mic_eq1_filtertype: params[45] || '',
-					input2_mic_eq2_frequency: params[46] || '',
-					input2_mic_eq2_gain: params[47] || '',
-					input2_mic_eq2_q: params[48] || '',
-					input2_mic_eq2_filtertype: params[49] || '',
-					input2_mic_eq3_frequency: params[50] || '',
-					input2_mic_eq3_gain: params[51] || '',
-					input2_mic_eq3_q: params[52] || '',
-					input2_mic_eq3_filtertype: params[53] || '',
+					miclineinput2_type: params[35] || '',
+					miclineinput2_mixtofloor: params[36] || '',
+					miclineinput2_mixtolanguage: params[37] || '',
 
-					input2_line_phantompower: params[54] || '',
-					input2_line_gain: params[55] || '',
-					input2_line_level: params[56] || '',
-					input2_line_lowcut: params[57] || '',
-					input2_line_eq1_frequency: params[58] || '',
-					input2_line_eq1_gain: params[59] || '',
-					input2_line_eq1_q: params[60] || '',
-					input2_line_eq1_filtertype: params[61] || '',
-					input2_line_eq2_frequency: params[62] || '',
-					input2_line_eq2_gain: params[63] || '',
-					input2_line_eq2_q: params[64] || '',
-					input2_line_eq2_filtertype: params[65] || '',
-					input2_line_eq3_frequency: params[66] || '',
-					input2_line_eq3_gain: params[67] || '',
-					input2_line_eq3_q: params[68] || '',
-					input2_line_eq3_filtertype: params[69] || '',
+					miclineinput2_mic_phantompower: params[38] || '',
+					miclineinput2_mic_gain: params[39] || '',
+					miclineinput2_mic_level: params[40] || '',
+					miclineinput2_mic_lowcut: params[41] || '',
+					
+					miclineinput2_mic_eq1_frequency: params[42] || '',
+					miclineinput2_mic_eq1_gain: params[43] || '',
+					miclineinput2_mic_eq1_q: params[44] || '',
+					miclineinput2_mic_eq1_filtertype: params[45] || '',
+					
+					miclineinput2_mic_eq2_frequency: params[46] || '',
+					miclineinput2_mic_eq2_gain: params[47] || '',
+					miclineinput2_mic_eq2_q: params[48] || '',
+					miclineinput2_mic_eq2_filtertype: params[49] || '',
+					
+					miclineinput2_mic_eq3_frequency: params[50] || '',
+					miclineinput2_mic_eq3_gain: params[51] || '',
+					miclineinput2_mic_eq3_q: params[52] || '',
+					miclineinput2_mic_eq3_filtertype: params[53] || '',
 
-					input1_canbemuted: params[70] || '',
-					input2_canbemuted: params[71] || '',
+					miclineinput2_line_phantompower: params[54] || '',
+					miclineinput2_line_gain: params[55] || '',
+					miclineinput2_line_level: params[56] || '',
+					miclineinput2_line_lowcut: params[57] || '',
+					
+					miclineinput2_line_eq1_frequency: params[58] || '',
+					miclineinput2_line_eq1_gain: params[59] || '',
+					miclineinput2_line_eq1_q: params[60] || '',
+					miclineinput2_line_eq1_filtertype: params[61] || '',
+					
+					miclineinput2_line_eq2_frequency: params[62] || '',
+					miclineinput2_line_eq2_gain: params[63] || '',
+					miclineinput2_line_eq2_q: params[64] || '',
+					miclineinput2_line_eq2_filtertype: params[65] || '',
+					
+					miclineinput2_line_eq3_frequency: params[66] || '',
+					miclineinput2_line_eq3_gain: params[67] || '',
+					miclineinput2_line_eq3_q: params[68] || '',
+					miclineinput2_line_eq3_filtertype: params[69] || '',
 
-					dante1_phantompower: params[72] || '',
-					dante1_gain: params[73] || '',
-					dante1_level: params[74] || '',
-					dante1_lowcut: params[75] || '',
-					dante1_eq1_frequency: params[76] || '',
-					dante1_eq1_gain: params[77] || '',
-					dante1_eq1_q: params[78] || '',
-					dante1_eq1_filtertype: params[79] || '',
-					dante1_eq2_frequency: params[80] || '',
-					dante1_eq2_gain: params[81] || '',
-					dante1_eq2_q: params[82] || '',
-					dante1_eq2_filtertype: params[83] || '',
-					dante1_eq3_frequency: params[84] || '',
-					dante1_eq3_gain: params[85] || '',
-					dante1_eq3_q: params[86] || '',
-					dante1_eq3_filtertype: params[87] || '',
+					mute_input1: params[70] || '',
+					mute_input2: params[71] || '',
 
-					dante2_phantompower: params[88] || '',
-					dante2_gain: params[89] || '',
-					dante2_level: params[90] || '',
-					dante2_lowcut: params[91] || '',
-					dante2_eq1_frequency: params[92] || '',
-					dante2_eq1_gain: params[93] || '',
-					dante2_eq1_q: params[94] || '',
-					dante2_eq1_filtertype: params[95] || '',
-					dante2_eq2_frequency: params[96] || '',
-					dante2_eq2_gain: params[97] || '',
-					dante2_eq2_q: params[98] || '',
-					dante2_eq2_filtertype: params[99] || '',
-					dante2_eq3_frequency: params[100] || '',
-					dante2_eq3_gain: params[101] || '',
-					dante2_eq3_q: params[102] || '',
-					dante2_eq3_filtertype: params[103] || '',
+					danteinput1_phantompower: params[72] || '',
+					danteinput1_gain: params[73] || '',
+					danteinput1_level: params[74] || '',
+					danteinput1_lowcut: params[75] || '',
+					
+					danteinput1_eq1_frequency: params[76] || '',
+					danteinput1_eq1_gain: params[77] || '',
+					danteinput1_eq1_q: params[78] || '',
+					danteinput1_eq1_filtertype: params[79] || '',
+					
+					danteinput1_eq2_frequency: params[80] || '',
+					danteinput1_eq2_gain: params[81] || '',
+					danteinput1_eq2_q: params[82] || '',
+					danteinput1_eq2_filtertype: params[83] || '',
+					
+					danteinput1_eq3_frequency: params[84] || '',
+					danteinput1_eq3_gain: params[85] || '',
+					danteinput1_eq3_q: params[86] || '',
+					danteinput1_eq3_filtertype: params[87] || '',
+
+					danteinput2_phantompower: params[88] || '',
+					danteinput2_gain: params[89] || '',
+					danteinput2_level: params[90] || '',
+					danteinput2_lowcut: params[91] || '',
+					
+					danteinput2_eq1_frequency: params[92] || '',
+					danteinput2_eq1_gain: params[93] || '',
+					danteinput2_eq1_q: params[94] || '',
+					danteinput2_eq1_filtertype: params[95] || '',
+					
+					danteinput2_eq2_frequency: params[96] || '',
+					danteinput2_eq2_gain: params[97] || '',
+					danteinput2_eq2_q: params[98] || '',
+					danteinput2_eq2_filtertype: params[99] || '',
+					
+					danteinput2_eq3_frequency: params[100] || '',
+					danteinput2_eq3_gain: params[101] || '',
+					danteinput2_eq3_q: params[102] || '',
+					danteinput2_eq3_filtertype: params[103] || '',
 				};
 				break;
 			case 'gxinp':
 				self.DATA.gxinp = {
-					level: params[0] || '',
-					nominal_level: params[1] || '',
-					mix_to_floor: params[2] || '',
-					mix_to_language1: params[3] || '',
-					mix_to_language2: params[4] || '',
-					low_cut_switch: params[5] || '',
-					eq1_freqency: params[6] || '',
-					eq1_gain: params[7] || '',
-					eq1_q: params[8] || '',
-					eq1_filter_type: params[9] || '',
-					eq2_freqency: params[10] || '',
-					eq2_gain: params[11] || '',
-					eq2_q: params[12] || '',
-					eq2_filter_type: params[13] || '',
-					eq3_freqency: params[14] || '',
-					eq3_gain: params[15] || '',
-					eq3_q: params[16] || '',
-					eq3_filter_type: params[17] || '',
-					input_type: params[18] || '',
+					aux_level: params[0] || '',
+					aux_nominallevel: params[1] || '',
+					aux_mixtofloor: params[2] || '',
+					aux_mixtolanguage1: params[3] || '',
+					aux_mixtolanguage2: params[4] || '',
+					aux_lowcut: params[5] || '',
+					aux_eq1_freqency: params[6] || '',
+					aux_eq1_gain: params[7] || '',
+					aux_eq1_q: params[8] || '',
+					aux_eq1_filtertype: params[9] || '',
+					aux_eq2_freqency: params[10] || '',
+					aux_eq2_gain: params[11] || '',
+					aux_eq2_q: params[12] || '',
+					aux_eq2_filtertype: params[13] || '',
+					aux_eq3_freqency: params[14] || '',
+					aux_eq3_gain: params[15] || '',
+					aux_eq3_q: params[16] || '',
+					aux_eq3_filtertype: params[17] || '',
+					aux_inputtype: params[18] || '',
 				};
 				break;
 			case 'giinp':
 				self.DATA.giinp = {
-					intreturn1_level: params[0] || '',
-					intreturn1_nominal_level: params[1] || '',
-					intreturn1_low_cut_switch: params[2] || '',
-					intreturn1_eq1_freqency: params[3] || '',
-					intreturn1_eq1_gain: params[4] || '',
-					intreturn1_eq1_q: params[5] || '',
-					intreturn1_eq1_filter_type: params[6] || '',
-					intreturn1_eq2_freqency: params[7] || '',
-					intreturn1_eq2_gain: params[8] || '',
-					intreturn1_eq2_q: params[9] || '',
-					intreturn1_eq2_filter_type: params[10] || '',
-					intreturn1_eq3_freqency: params[11] || '',
-					intreturn1_eq3_gain: params[12] || '',
-					intreturn1_eq3_q: params[13] || '',
-					intreturn1_eq3_filter_type: params[14] || '',
+					interpretationreturn1_level: params[0] || '',
+					interpretationreturn1_nominallevel: params[1] || '',
+					interpretationreturn1_lowcut: params[2] || '',
+					interpretationreturn1_eq1_freqency: params[3] || '',
+					interpretationreturn1_eq1_gain: params[4] || '',
+					interpretationreturn1_eq1_q: params[5] || '',
+					interpretationreturn1_eq1_filtertype: params[6] || '',
+					interpretationreturn1_eq2_freqency: params[7] || '',
+					interpretationreturn1_eq2_gain: params[8] || '',
+					interpretationreturn1_eq2_q: params[9] || '',
+					interpretationreturn1_eq2_filtertype: params[10] || '',
+					interpretationreturn1_eq3_freqency: params[11] || '',
+					interpretationreturn1_eq3_gain: params[12] || '',
+					interpretationreturn1_eq3_q: params[13] || '',
+					interpretationreturn1_eq3_filtertype: params[14] || '',
 					
-					intreturn2_level: params[15] || '',
-					intreturn2_nominal_level: params[16] || '',
-					intreturn2_low_cut_switch: params[17] || '',
-					intreturn2_eq1_freqency: params[18] || '',
-					intreturn2_eq1_gain: params[19] || '',
-					intreturn2_eq1_q: params[20] || '',
-					intreturn2_eq1_filter_type: params[21] || '',
-					intreturn2_eq2_freqency: params[22] || '',
-					intreturn2_eq2_gain: params[23] || '',
-					intreturn2_eq2_q: params[24] || '',
-					intreturn2_eq2_filter_type: params[25] || '',
-					intreturn2_eq3_freqency: params[26] || '',
-					intreturn2_eq3_gain: params[27] || '',
-					intreturn2_eq3_q: params[28] || '',
-					intreturn2_eq3_filter_type: params[29] || '',
+					interpretationreturn2_level: params[15] || '',
+					interpretationreturn2_nominallevel: params[16] || '',
+					interpretationreturn2_lowcut: params[17] || '',
+					interpretationreturn2_eq1_freqency: params[18] || '',
+					interpretationreturn2_eq1_gain: params[19] || '',
+					interpretationreturn2_eq1_q: params[20] || '',
+					interpretationreturn2_eq1_filtertype: params[21] || '',
+					interpretationreturn2_eq2_freqency: params[22] || '',
+					interpretationreturn2_eq2_gain: params[23] || '',
+					interpretationreturn2_eq2_q: params[24] || '',
+					interpretationreturn2_eq2_filtertype: params[25] || '',
+					interpretationreturn2_eq3_freqency: params[26] || '',
+					interpretationreturn2_eq3_gain: params[27] || '',
+					interpretationreturn2_eq3_q: params[28] || '',
+					interpretationreturn2_eq3_filtertype: params[29] || '',
 				};
 				break;
 			case 'gaout':
 				let gaout_kind = params[0];
-				let gaout_data = {
-					output_level: params[1] || '',
-					source_select: params[2] || '',
-				};
+
+				self.DATA.gaout['output' + gaout_kind + 'level'] = params[1] || '';
+				self.DATA.gaout['output' + gaout_kind + 'sourceselect'] = params[2] || '';
 
 				if (gaout_kind === '1') { //only output 1 has these params
-					gaout_data.max_volume = params[3] || '';
-					gaout_data.peq_enable = params[4] || '';
-					
-					gaout_data.band1_frequency = params[5] || '';
-					gaout_data.band1_gain = params[6] || '';
-					gaout_data.band1_q = params[7] || '';
-					gaout_data.band1_filter_type = params[8] || '';
+					self.DATA.gaout['output1_maxvolume'] = params[3] || '';
+					self.DATA.gaout['output1_maxvolume'] = params[4] || '';
 
-					gaout_data.band2_frequency = params[9] || '';
-					gaout_data.band2_gain = params[10] || '';
-					gaout_data.band2_q = params[11] || '';
+					self.DATA.gaout['output1_eq1_frequency'] = params[5] || '';
+					self.DATA.gaout['output1_eq1_gain'] = params[6] || '';
+					self.DATA.gaout['output1_eq1_q'] = params[7] || '';
+					self.DATA.gaout['output1_eq1_filtertype'] = params[8] || '';
 
-					gaout_data.band3_frequency = params[12] || '';
-					gaout_data.band3_gain = params[13] || '';
-					gaout_data.band3_q = params[14] || '';
+					self.DATA.gaout['output1_eq2_frequency'] = params[9] || '';
+					self.DATA.gaout['output1_eq2_gain'] = params[10] || '';
+					self.DATA.gaout['output1_eq2_q'] = params[11] || '';
 
-					gaout_data.band4_frequency = params[15] || '';
-					gaout_data.band4_gain = params[16] || '';
-					gaout_data.band4_q = params[17] || '';
+					self.DATA.gaout['output1_eq3_frequency'] = params[12] || '';
+					self.DATA.gaout['output1_eq3_gain'] = params[13] || '';
+					self.DATA.gaout['output1_eq3_q'] = params[14] || '';
 
-					gaout_data.band5_frequency = params[18] || '';
-					gaout_data.band5_gain = params[19] || '';
-					gaout_data.band5_q = params[20] || '';
+					self.DATA.gaout['output1_eq4_frequency'] = params[15] || '';
+					self.DATA.gaout['output1_eq4_gain'] = params[16] || '';
+					self.DATA.gaout['output1_eq4_q'] = params[17] || '';
 
-					gaout_data.band6_frequency = params[21] || '';
-					gaout_data.band6_gain = params[22] || '';
-					gaout_data.band6_q = params[23] || '';
+					self.DATA.gaout['output1_eq5_frequency'] = params[18] || '';
+					self.DATA.gaout['output1_eq5_gain'] = params[19] || '';
+					self.DATA.gaout['output1_eq5_q'] = params[20] || '';
 
-					gaout_data.band7_frequency = params[24] || '';
-					gaout_data.band7_gain = params[25] || '';
-					gaout_data.band7_q = params[26] || '';
+					self.DATA.gaout['output1_eq6_frequency'] = params[21] || '';
+					self.DATA.gaout['output1_eq6_gain'] = params[22] || '';
+					self.DATA.gaout['output1_eq6_q'] = params[23] || '';
 
-					gaout_data.band8_frequency = params[27] || '';
-					gaout_data.band8_gain = params[28] || '';
-					gaout_data.band8_q = params[29] || '';
-					gaout_data.band1_filter_type = params[30] || '';
+					self.DATA.gaout['output1_eq7_frequency'] = params[24] || '';
+					self.DATA.gaout['output1_eq7_gain'] = params[25] || '';
+					self.DATA.gaout['output1_eq7_q'] = params[26] || '';
 
-					gaout_data.dynamics_enable = params[31] || '';
-					gaout_data.dynamics_comp_threshold = params[32] || '';
-					gaout_data.dynamics_limiter_threshold = params[33] || '';
-					gaout_data.dynamics_ratio = params[34] || '';
-					gaout_data.dynamics_attack_time = params[35] || '';
-					gaout_data.dynamics_release_time = params[36] || '';
-					gaout_data.dynamics_gain = params[37] || '';
-					gaout_data.dynamics_mode = params[38] || '';
-					gaout_data.dynamics_sensitivity = params[39] || '';
-					gaout_data.dynamics_frequency = params[40] || '';
-					gaout_data.dynamics_reduction_meter = params[41] || '';
+					self.DATA.gaout['output1_eq8_frequency'] = params[27] || '';
+					self.DATA.gaout['output1_eq8_gain'] = params[28] || '';
+					self.DATA.gaout['output1_eq8_q'] = params[29] || '';
+					self.DATA.gaout['output1_eq8_filtertype'] = params[30] || '';
+
+					self.DATA.gaout['output1_dynamics_enable'] = params[31] || '';
+					self.DATA.gaout['output1_dynamics_compthreshold'] = params[32] || '';
+					self.DATA.gaout['output1_dynamics_limiterthreshold'] = params[33] || '';
+					self.DATA.gaout['output1_dynamics_ratio'] = params[34] || '';
+					self.DATA.gaout['output1_dynamics_attack'] = params[35] || '';
+					self.DATA.gaout['output1_dynamics_release'] = params[36] || '';
+					self.DATA.gaout['output1_dynamics_gain'] = params[37] || '';
+					self.DATA.gaout['output1_dynamics_mode'] = params[38] || '';
+					self.DATA.gaout['output1_dynamics_sensitivity'] = params[39] || '';
+					self.DATA.gaout['output1_dynamics_frequency'] = params[40] || '';
+					self.DATA.gaout['output1_dynamics_reduction'] = params[41] || '';
 				}
-
-				self.DATA.gaout[gaout_kind] = gaout_data;
 				break;
 			case 'ggpio':
 				let ggpio_data = {
@@ -484,12 +551,12 @@ module.exports = {
 				break;
 			case 'gintc':
 				self.DATA.gintc = {
-					mode: params[0] || '',
+					interpretationmode: params[0] || '',
 					interlock: params[1] || '',
-					group1: params[2] || '',
-					group2: params[3] || '',
-					group3: params[4] || '',
-					easy_mode: params[5] || '',
+					language1: params[2] || '',
+					language2: params[3] || '',
+					language3: params[4] || '',
+					easymode: params[5] || '',
 				};
 				break;
 			case 'greco':
@@ -553,7 +620,7 @@ module.exports = {
 	},
 
 	initPolling() {
-		if (this.pollTimer === undefined && this.config.poll_interval > 0) {
+		if (this.pollTimer === undefined && this.config.polling == true) {
 			this.pollTimer = setInterval(() => {
 				let model = this.MODELS.find((model) => model.id == this.config.model);
 
@@ -605,5 +672,81 @@ module.exports = {
 
 			}, this.config.poll_interval)
 		}
-	}
+	},
+
+	initUDP() {
+		let self = this;
+
+		//if udp socket is already open, close it
+		if (self.udpSocket !== undefined) {
+			self.udpSocket.close();
+			delete self.udpSocket;
+		}
+
+		if (self.config.status_change_listen) {
+			self.udpSocket = dgram.createSocket('udp4');
+
+			self.udpSocket.on('error', (err) => {
+				self.log('error', 'UDP error: ' + err.message);
+				self.updateStatus(InstanceStatus.Error);
+				self.udpSocket.close();
+				delete self.udpSocket;
+			});
+
+			self.udpSocket.on('message', (msg, rinfo) => {
+				self.processUDPResponse(msg.toString());
+			});
+
+			self.udpSocket.on('listening', () => {
+				const address = self.udpSocket.address();
+				self.log('debug', `UDP listening for status change messages on ${address.address}:${address.port}`);
+				self.udpSocket.addMembership(self.config.multicast_address);
+			});
+
+			self.udpSocket.bind(parseInt(self.config.multicast_port), () => {
+				//self.udpSocket.addMembership(self.config.multicast_address);
+			});
+		}
+	},
+
+	processUDPResponse(response) {
+		let self = this;
+		
+		let category = 'XXX'
+		let args = []
+		let params = ''
+ 
+		//args = response.split(' ')
+		args = response.match(/\\?.|^$/g).reduce((p, c) => {
+			if(c === '"'){
+				p.quote ^= 1;
+			}else if(!p.quote && c === ' '){
+				p.a.push('');
+			}else{
+				p.a[p.a.length-1] += c.replace(/\\(.)/,"$1");
+			}
+			return  p;
+		}, {a: ['']}).a
+
+		if (args.length >= 2) {
+			category = args[1].trim().toLowerCase();
+		}		
+
+		if (args.length >= 6) {
+			params = args[5];
+		}
+		
+		params = params.split(',');
+
+		let model = self.MODELS.find((model) => model.id == self.config.model);
+
+		switch (category) {
+			default:
+				console.log('no match: ' + category)
+				break;
+		}
+
+		self.checkFeedbacks()
+		self.checkVariables()
+	},
 }
