@@ -331,25 +331,27 @@ module.exports = {
 			}
 
 			if (model.variables.includes('ggpio')) {
-				for (let i = 0; i < self.DATA.ggpio.length; i++) {
-					let iu = self.DATA.ggpio[i];
-					variables.push({ variableId: `ggpio_${iu.serial}_gpi_0`, name: `Serial ${iu.serial} GPI 0`});
-					variables.push({ variableId: `ggpio_${iu.serial}_gpi_1`, name: `Serial ${iu.serial} GPI 1`});
-					variables.push({ variableId: `ggpio_${iu.serial}_gpi_2`, name: `Serial ${iu.serial} GPI 2`});
-					variables.push({ variableId: `ggpio_${iu.serial}_gpi_3`, name: `Serial ${iu.serial} GPI 3`});
-					variables.push({ variableId: `ggpio_${iu.serial}_gpi_4`, name: `Serial ${iu.serial} GPI 4`});
-					variables.push({ variableId: `ggpio_${iu.serial}_gpi_5`, name: `Serial ${iu.serial} GPI 5`});
-					variables.push({ variableId: `ggpio_${iu.serial}_gpi_6`, name: `Serial ${iu.serial} GPI 6`});
-					variables.push({ variableId: `ggpio_${iu.serial}_gpi_7`, name: `Serial ${iu.serial} GPI 7`});
-
-					variables.push({ variableId: `ggpio_${iu.serial}_gpo_0`, name: `Serial ${iu.serial} GPO 0`});
-					variables.push({ variableId: `ggpio_${iu.serial}_gpo_1`, name: `Serial ${iu.serial} GPO 1`});
-					variables.push({ variableId: `ggpio_${iu.serial}_gpo_2`, name: `Serial ${iu.serial} GPO 2`});
-					variables.push({ variableId: `ggpio_${iu.serial}_gpo_3`, name: `Serial ${iu.serial} GPO 3`});
-					variables.push({ variableId: `ggpio_${iu.serial}_gpo_4`, name: `Serial ${iu.serial} GPO 4`});
-					variables.push({ variableId: `ggpio_${iu.serial}_gpo_5`, name: `Serial ${iu.serial} GPO 5`});
-					variables.push({ variableId: `ggpio_${iu.serial}_gpo_6`, name: `Serial ${iu.serial} GPO 6`});
-					variables.push({ variableId: `ggpio_${iu.serial}_gpo_7`, name: `Serial ${iu.serial} GPO 7`});
+				if (this.DATA.ggpio) {
+					for (let i = 0; i < this.DATA.ggpio.length; i++) {
+						let iu = this.DATA.ggpio[i];
+						variables.push({ variableId: `ggpio_${iu.serial}_gpi_0`, name: `Serial ${iu.serial} GPI 0`});
+						variables.push({ variableId: `ggpio_${iu.serial}_gpi_1`, name: `Serial ${iu.serial} GPI 1`});
+						variables.push({ variableId: `ggpio_${iu.serial}_gpi_2`, name: `Serial ${iu.serial} GPI 2`});
+						variables.push({ variableId: `ggpio_${iu.serial}_gpi_3`, name: `Serial ${iu.serial} GPI 3`});
+						variables.push({ variableId: `ggpio_${iu.serial}_gpi_4`, name: `Serial ${iu.serial} GPI 4`});
+						variables.push({ variableId: `ggpio_${iu.serial}_gpi_5`, name: `Serial ${iu.serial} GPI 5`});
+						variables.push({ variableId: `ggpio_${iu.serial}_gpi_6`, name: `Serial ${iu.serial} GPI 6`});
+						variables.push({ variableId: `ggpio_${iu.serial}_gpi_7`, name: `Serial ${iu.serial} GPI 7`});
+	
+						variables.push({ variableId: `ggpio_${iu.serial}_gpo_0`, name: `Serial ${iu.serial} GPO 0`});
+						variables.push({ variableId: `ggpio_${iu.serial}_gpo_1`, name: `Serial ${iu.serial} GPO 1`});
+						variables.push({ variableId: `ggpio_${iu.serial}_gpo_2`, name: `Serial ${iu.serial} GPO 2`});
+						variables.push({ variableId: `ggpio_${iu.serial}_gpo_3`, name: `Serial ${iu.serial} GPO 3`});
+						variables.push({ variableId: `ggpio_${iu.serial}_gpo_4`, name: `Serial ${iu.serial} GPO 4`});
+						variables.push({ variableId: `ggpio_${iu.serial}_gpo_5`, name: `Serial ${iu.serial} GPO 5`});
+						variables.push({ variableId: `ggpio_${iu.serial}_gpo_6`, name: `Serial ${iu.serial} GPO 6`});
+						variables.push({ variableId: `ggpio_${iu.serial}_gpo_7`, name: `Serial ${iu.serial} GPO 7`});
+					}
 				}
 			}
 
@@ -363,14 +365,16 @@ module.exports = {
 			}
 
 			if (model.variables.includes('gcvui')) {
-				for (let i = 0; i < self.DATA.gcvui.length; i++) {
-					let vu = self.DATA.gcvui[i];
-					variables.push({ variableId: `gcvui_${vu.serial}_connect`, name: `Serial ${vu.serial} Connect Status`});
-					variables.push({ variableId: `gcvui_${vu.serial}_button0`, name: `Serial ${vu.serial} Button 0`});
-					variables.push({ variableId: `gcvui_${vu.serial}_button1`, name: `Serial ${vu.serial} Button 1`});
-					variables.push({ variableId: `gcvui_${vu.serial}_button2`, name: `Serial ${vu.serial} Button 2`});
-					variables.push({ variableId: `gcvui_${vu.serial}_button3`, name: `Serial ${vu.serial} Button 3`});
-					variables.push({ variableId: `gcvui_${vu.serial}_button4`, name: `Serial ${vu.serial} Button 4`});
+				if (this.DATA.gcvui) {
+					for (let i = 0; i < this.DATA.gcvui.length; i++) {
+						let vu = this.DATA.gcvui[i];
+						variables.push({ variableId: `gcvui_${vu.serial}_connect`, name: `Serial ${vu.serial} Connect Status`});
+						variables.push({ variableId: `gcvui_${vu.serial}_button0`, name: `Serial ${vu.serial} Button 0`});
+						variables.push({ variableId: `gcvui_${vu.serial}_button1`, name: `Serial ${vu.serial} Button 1`});
+						variables.push({ variableId: `gcvui_${vu.serial}_button2`, name: `Serial ${vu.serial} Button 2`});
+						variables.push({ variableId: `gcvui_${vu.serial}_button3`, name: `Serial ${vu.serial} Button 3`});
+						variables.push({ variableId: `gcvui_${vu.serial}_button4`, name: `Serial ${vu.serial} Button 4`});
+					}
 				}
 			}
 
@@ -749,26 +753,28 @@ module.exports = {
 				if (model.variables.includes('ggpio')) {
 					let variableObj = {};
 
-					for (let i = 0; i < this.DATA.ggpio.length; i++) {
-						let iu = this.DATA.ggpio[i];
-
-						variableObj[`ggpio_${iu.serial}_gpi_0`] = iu.gpi0;
-						variableObj[`ggpio_${iu.serial}_gpi_1`] = iu.gpi1;
-						variableObj[`ggpio_${iu.serial}_gpi_2`] = iu.gpi2;
-						variableObj[`ggpio_${iu.serial}_gpi_3`] = iu.gpi3;
-						variableObj[`ggpio_${iu.serial}_gpi_4`] = iu.gpi4;
-						variableObj[`ggpio_${iu.serial}_gpi_5`] = iu.gpi5;
-						variableObj[`ggpio_${iu.serial}_gpi_6`] = iu.gpi6;
-						variableObj[`ggpio_${iu.serial}_gpi_7`] = iu.gpi7;
-
-						variableObj[`ggpio_${iu.serial}_gpo_0`] = iu.gpo0;
-						variableObj[`ggpio_${iu.serial}_gpo_1`] = iu.gpo1;
-						variableObj[`ggpio_${iu.serial}_gpo_2`] = iu.gpo2;
-						variableObj[`ggpio_${iu.serial}_gpo_3`] = iu.gpo3;
-						variableObj[`ggpio_${iu.serial}_gpo_4`] = iu.gpo4;
-						variableObj[`ggpio_${iu.serial}_gpo_5`] = iu.gpo5;
-						variableObj[`ggpio_${iu.serial}_gpo_6`] = iu.gpo6;
-						variableObj[`ggpio_${iu.serial}_gpo_7`] = iu.gpo7;
+					if (this.DATA.ggpio) {
+						for (let i = 0; i < this.DATA.ggpio.length; i++) {
+							let iu = this.DATA.ggpio[i];
+	
+							variableObj[`ggpio_${iu.serial}_gpi_0`] = iu.gpi0;
+							variableObj[`ggpio_${iu.serial}_gpi_1`] = iu.gpi1;
+							variableObj[`ggpio_${iu.serial}_gpi_2`] = iu.gpi2;
+							variableObj[`ggpio_${iu.serial}_gpi_3`] = iu.gpi3;
+							variableObj[`ggpio_${iu.serial}_gpi_4`] = iu.gpi4;
+							variableObj[`ggpio_${iu.serial}_gpi_5`] = iu.gpi5;
+							variableObj[`ggpio_${iu.serial}_gpi_6`] = iu.gpi6;
+							variableObj[`ggpio_${iu.serial}_gpi_7`] = iu.gpi7;
+	
+							variableObj[`ggpio_${iu.serial}_gpo_0`] = iu.gpo0;
+							variableObj[`ggpio_${iu.serial}_gpo_1`] = iu.gpo1;
+							variableObj[`ggpio_${iu.serial}_gpo_2`] = iu.gpo2;
+							variableObj[`ggpio_${iu.serial}_gpo_3`] = iu.gpo3;
+							variableObj[`ggpio_${iu.serial}_gpo_4`] = iu.gpo4;
+							variableObj[`ggpio_${iu.serial}_gpo_5`] = iu.gpo5;
+							variableObj[`ggpio_${iu.serial}_gpo_6`] = iu.gpo6;
+							variableObj[`ggpio_${iu.serial}_gpo_7`] = iu.gpo7;
+						}
 					}
 
 					this.setVariableValues(variableObj);
@@ -789,14 +795,17 @@ module.exports = {
 	
 				if (model.variables.includes('gcvui')) {
 					let variableObj = {};
-					for (let i = 0; i < this.DATA.gcvui.length; i++) {
-						let vu = this.DATA.gcvui[i];
-						variableObj[`gcvui_${vu.serial}_connect`] = vu.connect;
-						variableObj[`gcvui_${vu.serial}_button0`] = vu.button0;
-						variableObj[`gcvui_${vu.serial}_button1`] = vu.button1;
-						variableObj[`gcvui_${vu.serial}_button2`] = vu.button2;
-						variableObj[`gcvui_${vu.serial}_button3`] = vu.button3;
-						variableObj[`gcvui_${vu.serial}_button4`] = vu.button4;
+
+					if (this.DATA.gcvui) {
+						for (let i = 0; i < this.DATA.gcvui.length; i++) {
+							let vu = this.DATA.gcvui[i];
+							variableObj[`gcvui_${vu.serial}_connect`] = vu.connect;
+							variableObj[`gcvui_${vu.serial}_button0`] = vu.button0;
+							variableObj[`gcvui_${vu.serial}_button1`] = vu.button1;
+							variableObj[`gcvui_${vu.serial}_button2`] = vu.button2;
+							variableObj[`gcvui_${vu.serial}_button3`] = vu.button3;
+							variableObj[`gcvui_${vu.serial}_button4`] = vu.button4;
+						}
 					}
 
 					this.setVariableValues(variableObj);
@@ -815,9 +824,11 @@ module.exports = {
 				if (model.variables.includes('glvmt')) {
 					let variableObj = {};
 
-					for (let i = 0; i < this.DATA.glvmt.length; i++) {
-						let point = this.DATA.glvmt[i];
-						variableObj[`glvmt_${point.monitor_point}_level`] = point.level;
+					if (this.DATA.glvmt) {
+						for (let i = 0; i < this.DATA.glvmt.length; i++) {
+							let point = this.DATA.glvmt[i];
+							variableObj[`glvmt_${point.monitor_point}_level`] = point.level;
+						}
 					}
 
 					this.setVariableValues(variableObj);
