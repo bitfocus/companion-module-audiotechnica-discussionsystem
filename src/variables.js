@@ -407,11 +407,10 @@ module.exports = {
 			let model = this.MODELS.find((model) => model.id == this.config.model);
 
 			if (model) {
+				let variableObj = {};
 				variableObj['model'] = model.label;
 
 				if (model.variables.includes('gcust')) {
-					let variableObj = {};
-
 					variableObj[`gcust_primary_porta_topology`] = this.DATA.gcust.primary_porta_topology;
 					variableObj[`gcust_primary_porta_du_count`] = this.DATA.gcust.primary_porta_du_count;
 					variableObj[`gcust_primary_porta_int50_count`] = this.DATA.gcust.primary_porta_int50_count;
@@ -468,13 +467,9 @@ module.exports = {
 
 					variableObj[`gcust_extension2_porta_duas_count`] = this.DATA.gcust.extension2_porta_duas_count;
 					variableObj[`gcust_extension2_portb_duas_count`] = this.DATA.gcust.extension2_portb_duas_count;
-					
-					this.setVariableValues(variableObj);
 				}
 	
 				if (model.variables.includes('gminp')) {
-					let variableObj = {};
-
 					variableObj[`gminp_miclineinput1_type`] = this.DATA.gminp.miclineinput1_type;
 					variableObj[`gminp_miclineinput1_mixtofloor`] = this.DATA.gminp.miclineinput1_mixtofloor;
 					variableObj[`gminp_miclineinput1_mixtolanguage`] = this.DATA.gminp.miclineinput1_mixtolanguage;
@@ -605,13 +600,9 @@ module.exports = {
 					variableObj[`gminp_danteinput2_eq3_gain`] = this.DATA.gminp.danteinput2_eq3_gain;
 					variableObj[`gminp_danteinput2_eq3_q`] = this.DATA.gminp.danteinput2_eq3_q;
 					variableObj[`gminp_danteinput2_eq3_filtertype`] = this.DATA.gminp.danteinput2_eq3_filtertype;
-
-					this.setVariableValues(variableObj);
 				}
 	
 				if (model.variables.includes('gxinp')) {
-					let variableObj = {};
-
 					variableObj[`gxinp_aux_level`] = this.DATA.gxinp.aux_level;
 					variableObj[`gxinp_aux_nominallevel`] = this.DATA.gxinp.aux_nominallevel;
 					variableObj[`gxinp_aux_mixtofloor`] = this.DATA.gxinp.aux_mixtofloor;
@@ -635,13 +626,9 @@ module.exports = {
 					variableObj[`gxinp_aux_eq3_filtertype`] = this.DATA.gxinp.aux_eq3_filtertype;
 
 					variableObj[`aux_inputtype`] = this.DATA.gxinp.aux_inputtype;
-
-					this.setVariableValues(variableObj);
 				}
 	
 				if (model.variables.includes('giinp')) {
-					let variableObj = {};
-
 					variableObj[`giinp_interpretationreturn1_level`] = this.DATA.giinp.interpretationreturn1_level;
 					variableObj[`giinp_interpretationreturn1_nominallevel`] = this.DATA.giinp.interpretationreturn1_nominallevel;
 					variableObj[`giinp_interpretationreturn1_lowcut`] = this.DATA.giinp.interpretationreturn1_lowcut;
@@ -679,13 +666,9 @@ module.exports = {
 					variableObj[`giinp_interpretationreturn2_eq3_gain`] = this.DATA.giinp.interpretationreturn2_eq3_gain;
 					variableObj[`giinp_interpretationreturn2_eq3_q`] = this.DATA.giinp.interpretationreturn2_eq3_q;
 					variableObj[`giinp_interpretationreturn2_eq3_filtertype`] = this.DATA.giinp.interpretationreturn2_eq3_filtertype;
-
-					this.setVariableValues(variableObj);
 				}
 	
 				if (model.variables.includes('gaout')) {
-					let variableObj = {};
-
 					variableObj[`gaout_output1_level`] = this.DATA.gaout.output1_level;
 					variableObj[`gaout_output1_sourceselect`] = this.DATA.gaout.output1_sourceselect;
 
@@ -746,13 +729,9 @@ module.exports = {
 					variableObj[`gaout_output1_dynamics_sensitivity`] = this.DATA.gaout.output1_dynamics_sensitivity;
 					variableObj[`gaout_output1_dynamics_frequency`] = this.DATA.gaout.output1_dynamics_frequency;
 					variableObj[`gaout_output1_dynamics_reduction`] = this.DATA.gaout.output1_dynamics_reduction;
-
-					this.setVariableValues(variableObj);
 				}
 	
 				if (model.variables.includes('ggpio')) {
-					let variableObj = {};
-
 					if (this.DATA.ggpio) {
 						for (let i = 0; i < this.DATA.ggpio.length; i++) {
 							let iu = this.DATA.ggpio[i];
@@ -776,26 +755,18 @@ module.exports = {
 							variableObj[`ggpio_${iu.serial}_gpo_7`] = iu.gpo7;
 						}
 					}
-
-					this.setVariableValues(variableObj);
 				}
 	
 				if (model.variables.includes('gintc')) {
-					let variableObj = {};
-
 					variableObj[`gintc_interpretationmode`] = this.DATA.gintc.interpretationmode;
 					variableObj[`gintc_interlock`] = this.DATA.gintc.interlock;
 					variableObj[`gintc_language1`] = this.DATA.gintc.language1;
 					variableObj[`gintc_language2`] = this.DATA.gintc.language2;
 					variableObj[`gintc_language3`] = this.DATA.gintc.language3;
 					variableObj[`gintc_easymode`] = this.DATA.gintc.easymode;
-
-					this.setVariableValues(variableObj);
 				}
 	
 				if (model.variables.includes('gcvui')) {
-					let variableObj = {};
-
 					if (this.DATA.gcvui) {
 						for (let i = 0; i < this.DATA.gcvui.length; i++) {
 							let vu = this.DATA.gcvui[i];
@@ -807,42 +778,32 @@ module.exports = {
 							variableObj[`gcvui_${vu.serial}_button4`] = vu.button4;
 						}
 					}
-
-					this.setVariableValues(variableObj);
 				}
 	
 				if (model.variables.includes('recst')) {
-					let variableObj = {};
-
 					variableObj[`rec_status`] = this.DATA.recst.status;
 					variableObj[`rec_elapsed`] = this.DATA.recst.elapsed;
 					variableObj[`rec_remaining`] = this.DATA.recst.remaining;
-
-					this.setVariableValues(variableObj);
 				}
 	
 				if (model.variables.includes('glvmt')) {
-					let variableObj = {};
-
 					if (this.DATA.glvmt) {
 						for (let i = 0; i < this.DATA.glvmt.length; i++) {
 							let point = this.DATA.glvmt[i];
-							variableObj[`glvmt_${point.monitor_point}_level`] = point.level;
+							variableObj[`glvmt_monitorpoint_${point.monitor_point}_level`] = point.level;
 						}
 					}
-
-					this.setVariableValues(variableObj);
 				}
 	
 				if (model.variables.includes('confm')) {
-					let variableObj = {};
-
-					this.setVariableValues(variableObj);
 				}
+
+				this.setVariableValues(variableObj);
 			}
 		}
 		catch(error) {
 			this.log('error', `Error checking variables: ${error.toString()}`)
+			console.log(error);
 		}
 	}
 }

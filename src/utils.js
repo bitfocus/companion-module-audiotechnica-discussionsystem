@@ -177,6 +177,8 @@ module.exports = {
 	},
 
 	processResponse(response) {
+		let self = this;
+
 		let category = 'XXX'
 		let args = []
 		let params = ''

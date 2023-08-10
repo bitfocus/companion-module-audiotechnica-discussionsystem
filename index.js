@@ -45,7 +45,17 @@ class atucInstance extends InstanceBase {
 		this.CONTROL_END = '\r';
 
 		this.DATA = {
-			
+			gcust: {},
+			gminp: {},
+			gxinp: {},
+			giinp: {},
+			gaout: {},
+			ggpio: {},
+			gintc: {},
+			greco: {},
+			gconf: {},
+			recst: {},
+			glvmt: [],
 		}
 	}
 
