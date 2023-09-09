@@ -204,9 +204,9 @@ module.exports = {
 			if (model.variables.includes('gxinp')) {
 				variables.push({ variableId: `gxinp_aux_level`, name: `Aux Input Level`});
 				variables.push({ variableId: `gxinp_aux_nominallevel`, name: `Aux Input Nominal Level`});
-				variables.push({ variableId: `gminp_aux_mixtofloor`, name: `Aux Input Mix To Floor`});
-				variables.push({ variableId: `gminp_aux_mixtolanguage1`, name: `Aux Input Mix to Language 1`});
-				variables.push({ variableId: `gminp_aux_mixtolanguage2`, name: `Aux Input Mix to Language 2`});
+				variables.push({ variableId: `gxinp_aux_mixtofloor`, name: `Aux Input Mix To Floor`});
+				variables.push({ variableId: `gxinp_aux_mixtolanguage1`, name: `Aux Input Mix to Language 1`});
+				variables.push({ variableId: `gxinp_aux_mixtolanguage2`, name: `Aux Input Mix to Language 2`});
 				variables.push({ variableId: `gxinp_aux_lowcut`, name: `Aux Input Low Cut`});
 
 				variables.push({ variableId: `gxinp_aux_eq1_frequency`, name: `Aux Input EQ 1 Frequency`});
@@ -625,7 +625,7 @@ module.exports = {
 					variableObj[`gxinp_aux_eq3_q`] = this.DATA.gxinp.aux_eq3_q;
 					variableObj[`gxinp_aux_eq3_filtertype`] = this.DATA.gxinp.aux_eq3_filtertype;
 
-					variableObj[`aux_inputtype`] = this.DATA.gxinp.aux_inputtype;
+					variableObj[`gxinp_aux_inputtype`] = this.DATA.gxinp.aux_inputtype;
 				}
 	
 				if (model.variables.includes('giinp')) {
@@ -781,9 +781,9 @@ module.exports = {
 				}
 	
 				if (model.variables.includes('recst')) {
-					variableObj[`rec_status`] = this.DATA.recst.status;
-					variableObj[`rec_elapsed`] = this.DATA.recst.elapsed;
-					variableObj[`rec_remaining`] = this.DATA.recst.remaining;
+					variableObj[`recst_rec_status`] = this.DATA.recst.status;
+					variableObj[`recst_rec_elapsed`] = this.DATA.recst.elapsed;
+					variableObj[`recst_rec_remaining`] = this.DATA.recst.remaining;
 				}
 	
 				if (model.variables.includes('glvmt')) {
