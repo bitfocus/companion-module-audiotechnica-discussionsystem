@@ -4,9 +4,10 @@ module.exports = {
 	initFeedbacks() {
 		let feedbacks = {}
 
-		let model = this.MODELS.find((model) => model.id == this.config.model);
+		let model = this.MODELS.find((model) => model.id == this.config.model)
 
-		if (model) { //push model specific feedbacks
+		if (model) {
+			//push model specific feedbacks
 			if (model.feedbacks.includes('phantompower')) {
 				feedbacks['phantom_power'] = {
 					type: 'boolean',
@@ -18,23 +19,23 @@ module.exports = {
 							label: 'Input Channel',
 							id: 'input',
 							default: model.input_channels[0].id,
-							choices: model.input_channels
-						}
+							choices: model.input_channels,
+						},
 					],
 					defaultStyle: {
 						color: combineRgb(0, 0, 0),
-						bgcolor: combineRgb(255, 0, 0)
+						bgcolor: combineRgb(255, 0, 0),
 					},
 					callback: (event) => {
 						let opt = event.options
-						let inputChannelSettingsObj = this.DATA.input_channel_settings.find((CHANNEL) => CHANNEL.id == opt.input);
+						let inputChannelSettingsObj = this.DATA.input_channel_settings.find((CHANNEL) => CHANNEL.id == opt.input)
 
 						if (inputChannelSettingsObj) {
 							if (inputChannelSettingsObj.phantomPower == true) {
-								return true;
+								return true
 							}
 						}
-						
+
 						return false
 					},
 				}
@@ -42,5 +43,5 @@ module.exports = {
 		}
 
 		this.setFeedbackDefinitions(feedbacks)
-	}
+	},
 }

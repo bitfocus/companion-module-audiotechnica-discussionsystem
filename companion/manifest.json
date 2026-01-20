@@ -21,13 +21,6 @@
 		"entrypoint": "../index.js"
 	},
 	"manufacturer": "Audio Technica",
-	"products": [
-		"AT-UC50",
-		"AT-UCIR"
-	],
-	"keywords": [
-		"Audio",
-		"microphone",
-		"conference"
-	]
+	"products": ["AT-UC50", "AT-UCIR"],
+	"keywords": ["Audio", "microphone", "conference"]
 }

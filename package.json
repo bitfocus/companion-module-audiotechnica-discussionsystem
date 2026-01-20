@@ -1,9 +1,10 @@
 {
 	"name": "audiotechnica-discussionsystem",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"main": "index.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"format": "prettier --write ."
 	},
 	"repository": {
 		"type": "git",
@@ -11,9 +12,10 @@
 	},
 	"license": "MIT",
 	"dependencies": {
-		"@companion-module/base": "^1.0.1"
+		"@companion-module/base": "^1.14.1"
 	},
 	"devDependencies": {
-		"@companion-module/tools": "^0.5.1"
+		"@companion-module/tools": "^2.5.0",
+		"prettier": "^3.8.0"
 	}
 }

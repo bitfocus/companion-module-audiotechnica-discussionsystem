@@ -27,22 +27,22 @@ class atucInstance extends InstanceBase {
 			...presets,
 			...utils,
 			...models,
-			...constants
+			...constants,
 		})
 
 		this.socket = undefined
 
-		this.cmdPipe = [];
-		this.lastReturnedCommand = undefined;
+		this.cmdPipe = []
+		this.lastReturnedCommand = undefined
 
 		this.pollTimer = undefined
 
-		this.CONTROL_MODELID= '0000';
-		this.CONTROL_UNITNUMBER = '00';
-		this.CONTROL_CONTINUESELECT = 'NC';
+		this.CONTROL_MODELID = '0000'
+		this.CONTROL_UNITNUMBER = '00'
+		this.CONTROL_CONTINUESELECT = 'NC'
 		this.CONTROL_ACK = 'ACK'
 		this.CONTROL_NAK = 'NAK'
-		this.CONTROL_END = '\r';
+		this.CONTROL_END = '\r'
 
 		this.DATA = {
 			gcust: {},
@@ -83,8 +83,8 @@ class atucInstance extends InstanceBase {
 		}
 		this.config = config
 
-		this.setUpInternalDataArrays();
-		
+		this.setUpInternalDataArrays()
+
 		this.initActions()
 		this.initFeedbacks()
 		this.initVariables()

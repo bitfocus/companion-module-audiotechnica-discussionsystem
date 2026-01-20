@@ -24,7 +24,7 @@ module.exports = {
 				id: 'model',
 				default: 'atuc-50cu',
 				choices: this.MODELS,
-				width: 12
+				width: 12,
 			},
 			{
 				type: 'checkbox',
@@ -66,7 +66,7 @@ module.exports = {
 				default: '17000',
 				regex: Regex.PORT,
 				isVisible: (configValues) => configValues.status_change_listen == true,
-			}
+			},
 		]
-	}
+	},
 }
