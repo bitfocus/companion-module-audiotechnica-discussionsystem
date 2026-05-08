@@ -2624,10 +2624,21 @@ module.exports = {
 					name: 'Talk Off Request',
 					options: [
 						{
+							type: 'dropdown',
+							label: 'Mode',
+							id: 'mode',
+							default: '0',
+							choices: [
+								{ id: '0', label: 'All' },
+								{ id: '1', label: 'Selected' },
+							],
+						},
+						{
 							type: 'textinput',
 							label: 'Serial Number / Device ID',
 							id: 'serial',
 							default: '00000000',
+							isVisible: (opt) => opt.mode == '1',
 						},
 						{
 							type: 'dropdown',
@@ -2641,6 +2652,7 @@ module.exports = {
 								{ id: '3', label: 'ATUC-IRDU' },
 								{ id: '4', label: 'ATUC-50DUa' },
 							],
+							isVisible: (opt) => opt.mode == '1',
 						},
 						{
 							type: 'dropdown',
@@ -2659,12 +2671,18 @@ module.exports = {
 
 						let params = ''
 
-						params += opt.serial + ','
-						params += opt.unit_type + ','
-
-						if (opt.unit_type == '3') {
-							params += opt.second_speaker
+						if (opt.mode == '0') {
+							params += '0,' //mode - all
 						}
+						else {
+							params += '1,' //mode - selected
+							params += opt.serial + ','
+							params += opt.unit_type + ','
+
+							if (opt.unit_type == '3') {
+								params += opt.second_speaker
+							}
+						}						
 
 						this.sendCommand('takof', 'S', params)
 					},
